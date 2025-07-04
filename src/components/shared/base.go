@@ -1,0 +1,32 @@
+package shared
+
+import (
+	"fmt"
+	"github.com/maxence-charriere/go-app/v10/pkg/app"
+	"time"
+)
+
+type Base struct {
+	app.Compo
+	Title    string
+	Children []app.UI
+}
+
+func (b *Base) Render() app.UI {
+	components := []app.UI{&Header{title: b.Title}}
+	return app.Div().Class("h-full flex flex-col").Body(append(
+		append(
+			components,
+			b.Children...,
+		),
+		app.Footer().Class("mt-24 py-8 bottom-auto border-t").Body(
+			app.Div().Class("text-center text-sm text-gray-500").Text(
+				fmt.Sprintf(
+					"© %[1]s • Создано %[1]s • Powered by Go + templ in %d",
+					b.Title,
+					time.Now().Year(),
+				),
+			),
+		),
+	)...)
+}

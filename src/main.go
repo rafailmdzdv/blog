@@ -1,13 +1,25 @@
 package main
 
 import (
-	"context"
-	"github.com/rafailmdzdv/blog/src/templates/pages"
-	"os"
+	"github.com/maxence-charriere/go-app/v10/pkg/app"
+	"github.com/rafailmdzdv/blog/src/components/pages"
+	"net/http"
 )
 
 func main() {
-	component := pages.Main("rafailmdzdv")
-	f, _ := os.Create("index.html")
-	component.Render(context.Background(), f)
+	title := "rafailmdzdv"
+	app.Route("/", func() app.Composer { return &pages.Main{Title: title} })
+	app.Route("/posts", func() app.Composer { return &pages.Posts{Title: title} })
+	app.RouteWithRegexp("^/posts/.*.org", func() app.Composer { return &pages.Post{Title: title} })
+	app.RunWhenOnBrowser()
+
+	http.Handle("/", &app.Handler{
+		Name:        "Main",
+		Description: "Main page",
+		Title:       title,
+		Styles: []string{
+			"/web/assets/styles.css",
+		},
+	})
+	http.ListenAndServe(":8000", nil)
 }

@@ -9,5 +9,12 @@ tasks:
   build:
     desc: Generate templates and index.html
     cmds:
-      - go tool templ generate
-      - go run src/*.go
+      - GOARCH=wasm GOOS=js go build -o web/app.wasm src/*.go
+      - go build -o run src/*.go
+
+  run:
+    desc: Run application
+    deps:
+      - build
+    cmds:
+      - ./run
