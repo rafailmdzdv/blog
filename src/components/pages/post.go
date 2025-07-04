@@ -19,11 +19,10 @@ type Post struct {
 func (p *Post) Render() app.UI {
 	f, _ := os.Open(fmt.Sprintf("posts/test.org"))
 	html, _ := org.New().Parse(f, "").Write(org.NewHTMLWriter())
+	html = strings.Split(html, "</nav>")[1]
 	html = fmt.Sprintf(`
-		<div class="h-64 bg-gray-500">%s</div>
+		<div class="h-full my-12 text-center">%s</div>
 	`, html)
-	fmt.Println(html)
-	fmt.Println(p.PostName)
 	return &shared.Base{
 		Title: p.Title,
 		Children: []app.UI{

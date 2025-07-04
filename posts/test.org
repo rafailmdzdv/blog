@@ -1,2 +1,6 @@
-* Hello
-** Hello again
+* First note
+** Beginning
+   Hello everyone!
+   [[cat][https://en.meming.world/images/en/thumb/b/b9/Cursed_Cat.jpg/300px-Cursed_Cat.jpg]]
+   Lol
+   [[dog][https://c.tenor.com/OJbN3TbeEy0AAAAd/tenor.gif]]

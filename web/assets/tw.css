@@ -3,3 +3,18 @@
 body {
     height: 100vh;
 }
+
+h2[id^="headline"] {
+    font-size: 1.875rem;
+}
+h3[id^="headline"] {
+    font-size: 1.5rem;
+}
+div[id^="outline-text"] {
+    font-size: 1rem;
+}
+div[id^="outline"] img {
+    padding-top: 20px;
+    margin: auto;
+}
+
