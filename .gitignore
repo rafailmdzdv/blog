@@ -165,4 +165,6 @@ dist
 .svelte-kit
 
 index.html
+run
+web/assets/styles.css
 # End of https://www.toptal.com/developers/gitignore/api/go,node
