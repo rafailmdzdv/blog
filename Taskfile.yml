@@ -1,0 +1,13 @@
+version: '3'
+
+tasks:
+  css:
+    desc: Build css
+    cmds:
+      - tailwindcss -i ./assets/tw.css -o ./assets/styles.css
+
+  build:
+    desc: Generate templates and index.html
+    cmds:
+      - go tool templ generate
+      - go run src/*.go
