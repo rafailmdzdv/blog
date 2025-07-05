@@ -1,8 +1,6 @@
 package main
 
 import (
-	"net/http"
-
 	"github.com/maxence-charriere/go-app/v10/pkg/app"
 	"github.com/rafailmdzdv/blog/src/components/pages"
 	"github.com/rafailmdzdv/blog/src/core"
@@ -16,7 +14,7 @@ func main() {
 	app.RouteWithRegexp("^/posts/.+", func() app.Composer { return &pages.Post{Title: title, Config: config} })
 	app.RunWhenOnBrowser()
 
-	http.Handle("/", &app.Handler{
+	app.GenerateStaticWebsite("dist", &app.Handler{
 		Name:        "Main",
 		Description: "Main page",
 		Title:       title,
@@ -24,5 +22,4 @@ func main() {
 			"/web/assets/styles.css",
 		},
 	})
-	http.ListenAndServe(":8000", nil)
 }
