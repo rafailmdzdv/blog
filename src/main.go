@@ -1,16 +1,19 @@
 package main
 
 import (
+	"net/http"
+
 	"github.com/maxence-charriere/go-app/v10/pkg/app"
 	"github.com/rafailmdzdv/blog/src/components/pages"
-	"net/http"
+	"github.com/rafailmdzdv/blog/src/core"
 )
 
 func main() {
+	config := config.DefaultConfig()
 	title := "rafailmdzdv"
 	app.Route("/", func() app.Composer { return &pages.Main{Title: title} })
-	app.Route("/posts", func() app.Composer { return &pages.Posts{Title: title} })
-	app.RouteWithRegexp("^/posts/.*.org", func() app.Composer { return &pages.Post{Title: title} })
+	app.Route("/posts", func() app.Composer { return &pages.Posts{Title: title, Config: config} })
+	app.RouteWithRegexp("^/posts/.+", func() app.Composer { return &pages.Post{Title: title, Config: config} })
 	app.RunWhenOnBrowser()
 
 	http.Handle("/", &app.Handler{

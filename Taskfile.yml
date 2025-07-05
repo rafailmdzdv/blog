@@ -4,7 +4,7 @@ tasks:
   css:
     desc: Build css
     cmds:
-      - tailwindcss -i ./web/assets/tw.css -o ./web/assets/styles.css
+      - npx @tailwindcss/cli -i ./web/assets/tw.css -o ./web/assets/styles.css
 
   build:
     desc: Generate templates and index.html

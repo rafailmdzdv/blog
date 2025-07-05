@@ -14,11 +14,9 @@ type Base struct {
 
 func (b *Base) Render() app.UI {
 	components := []app.UI{&Header{title: b.Title}}
-	return app.Div().Class("h-full flex flex-col").Body(append(
-		append(
-			components,
-			b.Children...,
-		),
+	components = append(components, b.Children...)
+	components = append(
+		components,
 		app.Footer().Class("mt-24 py-8 bottom-auto border-t").Body(
 			app.Div().Class("text-center text-sm text-gray-500").Text(
 				fmt.Sprintf(
@@ -28,5 +26,10 @@ func (b *Base) Render() app.UI {
 				),
 			),
 		),
-	)...)
+	)
+	return app.Div().Class("h-full flex flex-col").Body(
+		app.Range(components).Slice(func(i int) app.UI {
+			return components[i]
+		}),
+	)
 }

@@ -1,36 +1,38 @@
 package domain
 
 import (
-	"fmt"
-	"os"
+	"github.com/rafailmdzdv/blog/src/core"
+	"io"
+	"net/http"
+	"regexp"
 	"strings"
 )
 
 type Post struct {
-	Title       string
-	Description string
-	FilePath    string
+	Title    string
+	IconPath string
 }
 
-func PostsFromDir() []Post {
-	dirName := "posts"
-	d, _ := os.ReadDir(dirName)
+func PostsFromCDN(c config.Map) []Post {
+	r, _ := http.Get(c.CDN.Url)
+	defer r.Body.Close()
+	body, _ := io.ReadAll(r.Body)
+	re := regexp.MustCompile(`href=".*"`)
+	postsF := re.FindAllString(string(body), -1)
 	posts := []Post{}
-	for _, f := range d {
-		fileName := f.Name()
-		fullPath := fmt.Sprintf("%s/%s", dirName, fileName)
-		of, _ := os.ReadFile(fullPath)
-		firstLine := ""
-		for _, b := range of {
-			if strings.ContainsAny(string(b), "*") {
-				continue
-			}
-			firstLine += string(b)
-			if b == '\n' {
-				break
-			}
+	for _, f := range postsF {
+		fileName := strings.TrimRight(strings.TrimLeft(f, `href="`), `"`)
+		if fileName == "../" || fileName == "ico/" {
+			continue
 		}
-		posts = append(posts, Post{Title: fileName, Description: firstLine, FilePath: fullPath})
+		postTitle := strings.TrimRight(fileName, ".org")
+		posts = append(
+			posts,
+			Post{
+				Title:    postTitle,
+				IconPath: "ico/" + postTitle + ".jpg",
+			},
+		)
 	}
 	return posts
 }
