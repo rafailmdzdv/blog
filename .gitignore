@@ -167,4 +167,5 @@ dist
 index.html
 run
 web/assets/styles.css
+app.wasm
 # End of https://www.toptal.com/developers/gitignore/api/go,node
