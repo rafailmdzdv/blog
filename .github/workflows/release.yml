@@ -35,6 +35,7 @@ jobs:
           GOARCH=wasm GOOS=js go build -o web/app.wasm src/*.go
           go build -o build src/*.go
           ./build
+          mv web/app.wasm ./dist/web
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
