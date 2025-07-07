@@ -1,7 +1,9 @@
 package domain
 
 import (
+	"github.com/niklasfasching/go-org/org"
 	"github.com/rafailmdzdv/blog/src/core"
+	"github.com/rafailmdzdv/blog/src/utils"
 	"io"
 	"net/http"
 	"regexp"
@@ -11,6 +13,11 @@ import (
 type Post struct {
 	Title    string
 	IconPath string
+	Metadata metadata
+}
+
+type metadata struct {
+	Description string
 }
 
 func PostsFromCDN(c config.Map) []Post {
@@ -31,8 +38,22 @@ func PostsFromCDN(c config.Map) []Post {
 			Post{
 				Title:    postTitle,
 				IconPath: "ico/" + postTitle + ".jpg",
+				Metadata: postMetadata(fileName, c),
 			},
 		)
 	}
 	return posts
+}
+
+func postMetadata(filename string, c config.Map) metadata {
+	m := metadata{}
+	r, _ := http.Get(c.CDN.Url + filename)
+	defer r.Body.Close()
+	orgFile := org.New().Parse(r.Body, "")
+	if props := utils.ParseProperties(orgFile.Nodes); len(props) != 0 {
+		if val, ok := props["DESCRIPTION"]; ok {
+			m.Description = val
+		}
+	}
+	return m
 }

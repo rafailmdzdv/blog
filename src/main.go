@@ -18,8 +18,9 @@ func main() {
 	posts := domain.PostsFromCDN(config)
 	pages := []string{"/", "/posts"}
 	for _, post := range posts {
-		pages = append(pages, "/posts/" + post.Title)
+		pages = append(pages, "/posts/"+post.Title)
 	}
+
 	app.GenerateStaticWebsite(
 		"dist",
 		&app.Handler{

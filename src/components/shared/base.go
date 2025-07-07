@@ -17,7 +17,7 @@ func (b *Base) Render() app.UI {
 	components = append(components, b.Children...)
 	components = append(
 		components,
-		app.Footer().Class("mt-24 py-8 bottom-auto border-t").Body(
+		app.Footer().Class("mt-24 py-8 bottom-auto border-t border-gray-200").Body(
 			app.Div().Class("text-center text-sm text-gray-500").Text(
 				fmt.Sprintf(
 					"©%[1]s • Created by %[1]s • Powered by Go in %d",
