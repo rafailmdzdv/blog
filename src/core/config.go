@@ -16,7 +16,7 @@ func DefaultConfig() Map {
 			CDN: struct {
 				Url string
 			}{
-				Url: "http://91.108.245.148:8000/",
+				Url: "https://cdn.rafailmdzdv.ru/",
 			},
 		},
 	}
