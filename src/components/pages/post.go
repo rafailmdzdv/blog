@@ -22,9 +22,28 @@ type Post struct {
 var _ app.Navigator = (*Post)(nil)
 
 func (p *Post) Render() app.UI {
-	contentDIV := app.Div().Class("h-full my-12 text-center")
+	contentDIV := app.Div().Class("h-full my-12 flex flex-col items-center space-y-24")
 	if p.PostContent != "" {
-		contentDIV = contentDIV.Body(app.Raw(p.PostContent))
+		contentDIV = contentDIV.Body(
+			app.Raw(p.PostContent),
+			app.Div().Class("w-1/2").Body(
+				app.Script().
+					Src("https://giscus.app/client.js").
+					DataSets(map[string]any{
+						"repo":              "rafailmdzdv/blog",
+						"repo-id":           "R_kgDOPD6V_g",
+						"category-id":       "DIC_kwDOPD6V_s4CsloY",
+						"mapping":           "pathname",
+						"strict":            "0",
+						"reactions-enabled": "1",
+						"emit-metadata":     "0",
+						"input-position":    "bottom",
+						"theme":             "preferred_color_scheme",
+						"lang":              "en",
+					}).
+					CrossOrigin("anonymous"),
+			),
+		)
 	}
 	return &shared.Base{
 		Title:    p.Title,
