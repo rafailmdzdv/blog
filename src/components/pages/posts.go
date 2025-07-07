@@ -23,7 +23,7 @@ func (p *Posts) Render() app.UI {
 				app.Div().Class("flex flex-col w-full h-full space-y-3").Body(
 					app.Range(posts).Slice(func(i int) app.UI {
 						post := posts[i]
-						return app.A().Href("/posts/" + post.Title).Class("w-full h-1/8 px-6 rounded-2xl transition hover:shadow-lg bg-gray-50 hover:bg-white").Body(
+						return app.A().Href("/blog/posts/" + post.Title).Class("w-full h-1/8 px-6 rounded-2xl transition hover:shadow-lg bg-gray-50 hover:bg-white").Body(
 							app.Div().Class("flex h-full justify-between items-center space-x-5").Body(
 								app.Div().Body(
 									app.Img().Class("w-16 rounded-full").Src(p.Config.CDN.Url+post.IconPath),
