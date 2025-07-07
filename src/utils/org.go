@@ -18,10 +18,10 @@ func ParseProperties(nodes []org.Node) map[string]string {
 			subnodes := strings.Split(node.String(), "\n")[1:]
 			for _, subnode := range subnodes {
 				if m := titleSection.FindStringSubmatch(subnode); m != nil {
-					properties["TITLE"] = strings.TrimLeft(subnode, ":TITLE: ")
+					properties["TITLE"] = strings.TrimPrefix(subnode, ":TITLE: ")
 				}
 				if m := descSection.FindStringSubmatch(subnode); m != nil {
-					properties["DESCRIPTION"] = strings.TrimLeft(subnode, ":DESCRIPTION: ")
+					properties["DESCRIPTION"] = strings.TrimPrefix(subnode, ":DESCRIPTION: ")
 				}
 				if m := endPropertiesBlock.FindStringSubmatch(subnode); m != nil {
 					break

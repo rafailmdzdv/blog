@@ -1,13 +1,14 @@
 package domain
 
 import (
-	"github.com/niklasfasching/go-org/org"
-	"github.com/rafailmdzdv/blog/src/core"
-	"github.com/rafailmdzdv/blog/src/utils"
 	"io"
 	"net/http"
 	"regexp"
 	"strings"
+
+	"github.com/niklasfasching/go-org/org"
+	"github.com/rafailmdzdv/blog/src/core"
+	"github.com/rafailmdzdv/blog/src/utils"
 )
 
 type Post struct {
@@ -17,7 +18,7 @@ type Post struct {
 }
 
 type metadata struct {
-	Title string
+	Title       string
 	Description string
 }
 
@@ -29,11 +30,11 @@ func PostsFromCDN(c config.Map) []Post {
 	postsF := re.FindAllString(string(body), -1)
 	posts := []Post{}
 	for _, f := range postsF {
-		fileName := strings.TrimRight(strings.TrimLeft(f, `href="`), `"`)
+		fileName := strings.TrimRight(strings.ReplaceAll(f, `href="`, ""), `"`)
 		if fileName == "../" || fileName == "ico/" {
 			continue
 		}
-		postTitle := strings.TrimRight(fileName, ".org")
+		postTitle := strings.TrimSuffix(fileName, ".org")
 		posts = append(
 			posts,
 			Post{
