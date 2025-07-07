@@ -29,7 +29,7 @@ func (p *Posts) Render() app.UI {
 									app.Img().Class("w-16 rounded-full").Src(p.Config.CDN.Url+post.IconPath),
 								),
 								app.Div().Class("text-end").Body(
-									app.H3().Class("text-xl font-semibold text-gray-900 group-hover:text-indigo-600 transition").Text(post.Title),
+									app.H3().Class("text-xl font-semibold text-gray-900 group-hover:text-indigo-600 transition").Text(post.Metadata.Title),
 									app.P().Text(post.Metadata.Description),
 								),
 							),

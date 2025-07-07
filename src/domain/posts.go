@@ -17,6 +17,7 @@ type Post struct {
 }
 
 type metadata struct {
+	Title string
 	Description string
 }
 
@@ -51,6 +52,9 @@ func postMetadata(filename string, c config.Map) metadata {
 	defer r.Body.Close()
 	orgFile := org.New().Parse(r.Body, "")
 	if props := utils.ParseProperties(orgFile.Nodes); len(props) != 0 {
+		if val, ok := props["TITLE"]; ok {
+			m.Title = val
+		}
 		if val, ok := props["DESCRIPTION"]; ok {
 			m.Description = val
 		}
