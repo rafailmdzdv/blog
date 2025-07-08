@@ -10,11 +10,11 @@ type ThemeSwap struct {
 
 func (t *ThemeSwap) Render() app.UI {
 	return app.Label().Class("swap swap-rotate").Body(
-		app.Input().Type("checkbox").Class("theme-controller").Value("rosepine-moon"),
+		app.Input().Type("checkbox").Class("theme-controller").Value("rosepine-dawn"),
 		app.Raw(
 			`
 				<svg
-					class="swap-on h-10 w-10 fill-current"
+					class="swap-off h-10 w-10 fill-current"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 24 24">
 					<path
@@ -25,7 +25,7 @@ func (t *ThemeSwap) Render() app.UI {
 		app.Raw(
 			`
 				<svg
-					class="swap-off h-10 w-10 fill-current"
+					class="swap-on h-10 w-10 fill-current"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 24 24">
 					<path

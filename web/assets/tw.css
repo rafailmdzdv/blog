@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-    themes: rosepine-dawn --default, rosepine-moon --prefersdark;
+    themes: rosepine-dawn, rosepine-moon --default;
 }
 @plugin "daisyui/theme" {
     name: rosepine-dawn;
