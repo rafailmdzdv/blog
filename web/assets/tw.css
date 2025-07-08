@@ -53,3 +53,15 @@ div[id^="outline"] img {
     padding-top: 20px;
     margin: auto;
 }
+[data-theme="rosepine-dawn"] {
+    div[id^="outline-text"] a {
+        text-decoration: underline;
+        color: #56949f;
+    }
+}
+[data-theme="rosepine-moon"] {
+    div[id^="outline-text"] a {
+        text-decoration: underline;
+        color: #9ccfd8;
+    }
+}
