@@ -1,7 +1,43 @@
 @import "tailwindcss";
+@plugin "daisyui" {
+    themes: rosepine-dawn --default, rosepine-moon --prefersdark;
+}
+@plugin "daisyui/theme" {
+    name: rosepine-dawn;
+    default: true;
+    prefersdark: false;
+    color-scheme: light;
+    --color-base-content: #575279;
+    --color-primary: #907aa9;
+    --color-secondary: #d7827e;
+    --color-accent: #907aa9;
+    --color-neutral: #faf4ed;
+    --color-base-100: #fffaf3;
+    --color-info: #286983;
+    --color-success: #56949f;
+    --color-warning: #ea9d34;
+    --color-error: #b4637a;
+}
+@plugin "daisyui/theme" {
+    name: rosepine-moon;
+    default: false;
+    prefersdark: true;
+    color-scheme: dark;
+    --color-base-content: #e0def4;
+    --color-primary: #c4a7e7;
+    --color-secondary: #ea9a97;
+    --color-accent: #c4a7e7;
+    --color-neutral: #2a273f;
+    --color-base-100: #232136;
+    --color-info: #3e8fb0;
+    --color-success: #9ccfd8;
+    --color-warning: #f6c177;
+    --color-error: #eb6f92;
+}
 
+html,
 body {
-    height: 100vh;
+    height: 100%;
 }
 
 h2[id^="headline"] {
@@ -17,4 +53,3 @@ div[id^="outline"] img {
     padding-top: 20px;
     margin: auto;
 }
-

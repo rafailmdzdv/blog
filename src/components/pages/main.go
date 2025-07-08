@@ -15,8 +15,10 @@ func (m *Main) Render() app.UI {
 	return &shared.Base{
 		Title: m.Title,
 		Children: []app.UI{
-			app.Section().Class("max-w-3xl mx-auto px-6 py-20 text-center h-full").Body(
-				app.H2().Class("text-4xl font-bold mb-4 tracking-tight").Text(fmt.Sprintf("👋 Привет, я %s", m.Title)),
+			app.Div().Class("h-full").Body(
+				app.Section().Class("max-w-3xl mx-auto px-6 py-20 text-center h-full").Body(
+					app.H2().Class("text-4xl font-bold mb-4 tracking-tight").Text(fmt.Sprintf("👋 Привет, я %s", m.Title)),
+				),
 			),
 		},
 	}

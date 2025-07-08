@@ -22,7 +22,7 @@ type Post struct {
 var _ app.Navigator = (*Post)(nil)
 
 func (p *Post) Render() app.UI {
-	contentDIV := app.Div().Class("h-full my-12 flex flex-col items-center space-y-24 text-center")
+	contentDIV := app.Div().Class("h-full mt-12 mb-16 flex flex-col items-center space-y-24 text-center")
 	if p.PostContent != "" {
 		contentDIV = contentDIV.Body(
 			app.Raw(p.PostContent),
