@@ -30,7 +30,6 @@ func main() {
 			Styles: []string{
 				"/web/assets/styles.css",
 			},
-			Resources: app.GitHubPages("blog"),
 		},
 		pages...,
 	)
