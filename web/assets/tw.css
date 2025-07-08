@@ -1,10 +1,10 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-    themes: rosepine-dawn, rosepine-moon --default;
+    themes: rosepine-dawn, rosepine-moon;
 }
 @plugin "daisyui/theme" {
     name: rosepine-dawn;
-    default: true;
+    default: false;
     prefersdark: false;
     color-scheme: light;
     --color-base-content: #575279;
@@ -20,8 +20,8 @@
 }
 @plugin "daisyui/theme" {
     name: rosepine-moon;
-    default: false;
-    prefersdark: true;
+    default: true;
+    prefersdark: false;
     color-scheme: dark;
     --color-base-content: #e0def4;
     --color-primary: #c4a7e7;

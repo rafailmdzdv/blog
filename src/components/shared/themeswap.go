@@ -1,8 +1,6 @@
 package shared
 
-import (
-	"github.com/maxence-charriere/go-app/v10/pkg/app"
-)
+import "github.com/maxence-charriere/go-app/v10/pkg/app"
 
 type ThemeSwap struct {
 	app.Compo
@@ -10,7 +8,16 @@ type ThemeSwap struct {
 
 func (t *ThemeSwap) Render() app.UI {
 	return app.Label().Class("swap swap-rotate").Body(
-		app.Input().Type("checkbox").Class("theme-controller").Value("rosepine-dawn"),
+		app.Input().Type("checkbox").OnInput(func(ctx app.Context, e app.Event) {
+			if ctx.JSSrc().Get("checked").Bool() {
+				ctx.LocalStorage().Set("theme", "rosepine-dawn")
+			} else {
+				ctx.LocalStorage().Set("theme", "rosepine-moon")
+			}
+			var theme string
+			ctx.LocalStorage().Get("theme", &theme)
+			app.Window().Get("document").Call("querySelector", "html").Call("setAttribute", "data-theme", theme)
+		}),
 		app.Raw(
 			`
 				<svg

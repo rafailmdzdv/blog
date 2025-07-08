@@ -30,6 +30,7 @@ func main() {
 			Styles: []string{
 				"/web/assets/styles.css",
 			},
+			HTML: func() app.HTMLHtml { return app.Html().DataSet("theme", "rosepine-moon") },
 		},
 		pages...,
 	)
