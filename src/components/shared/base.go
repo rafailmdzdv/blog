@@ -18,7 +18,7 @@ func (b *Base) Render() app.UI {
 	components = append(
 		components,
 		app.Footer().Class("footer footer-center absolute bottom-0 py-4 mt-8 border-t border-gray-200 select-none").Body(
-			app.Aside().Body(
+			app.Aside().Class("grid ml-auto grid-flow-col justify-self-center").Body(
 				app.Div().Text(
 					fmt.Sprintf(
 						"©%[1]s • Created by %[1]s • Powered by Go in %d",
@@ -26,6 +26,9 @@ func (b *Base) Render() app.UI {
 						time.Now().Year(),
 					),
 				),
+			),
+			app.Nav().Class("grid grid-flow-col justify-self-end mr-5 text-3xl").Body(
+				app.A().Href("https://github.com/rafailmdzdv").Text(""),
 			),
 		),
 	)
