@@ -4,11 +4,15 @@ import "github.com/maxence-charriere/go-app/v10/pkg/app"
 
 type ThemeSwap struct {
 	app.Compo
+
+	lightEnabled bool
 }
+
+var _ app.Mounter = (*ThemeSwap)(nil)
 
 func (t *ThemeSwap) Render() app.UI {
 	return app.Label().Class("swap swap-rotate").Body(
-		app.Input().Type("checkbox").OnInput(func(ctx app.Context, e app.Event) {
+		app.Input().Type("checkbox").Checked(t.lightEnabled).OnInput(func(ctx app.Context, e app.Event) {
 			if ctx.JSSrc().Get("checked").Bool() {
 				ctx.LocalStorage().Set("theme", "rosepine-dawn")
 			} else {
@@ -41,4 +45,22 @@ func (t *ThemeSwap) Render() app.UI {
 			`,
 		),
 	)
+}
+
+func (t *ThemeSwap) OnMount(ctx app.Context) {
+	theme := app.Window().Get("document").Call("querySelector", "html").Get("dataset").Get("theme").String()
+	lightEnabled := false
+	if theme == "" {
+		ctx.LocalStorage().Get("theme", &theme)
+		if theme == "" {
+			theme = "rosepine-moon"
+		}
+		app.Window().Get("document").Call("querySelector", "html").Call("setAttribute", "data-theme", theme)
+	}
+	if theme == "rosepine-dawn" {
+		lightEnabled = true
+	}
+	ctx.Dispatch(func(ctx app.Context) {
+		t.lightEnabled = lightEnabled
+	})
 }
