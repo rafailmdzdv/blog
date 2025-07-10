@@ -26,7 +26,7 @@ func (p *Post) Render() app.UI {
 	if p.PostContent != "" {
 		contentDIV = contentDIV.Body(
 			app.Raw(p.PostContent),
-			app.Div().Class("w-1/2").Body(
+			app.Div().Class("w-1/2 mb-8").Body(
 				app.Script().
 					Src("https://giscus.app/client.js").
 					DataSets(map[string]any{
