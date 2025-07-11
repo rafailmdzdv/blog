@@ -15,10 +15,10 @@ func main() {
 	app.RouteWithRegexp("^/posts/.+", func() app.Composer { return &pages.Post{Title: title, Config: config} })
 	app.RunWhenOnBrowser()
 
-	posts := domain.PostsFromCDN(config)
+	posts := domain.PostsFromAPI(config)
 	pages := []string{"/", "/posts"}
 	for _, post := range posts {
-		pages = append(pages, "/posts/"+post.Title)
+		pages = append(pages, "/posts/"+post.Id)
 	}
 
 	app.GenerateStaticWebsite(

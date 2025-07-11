@@ -15,7 +15,7 @@ type Posts struct {
 }
 
 func (p *Posts) Render() app.UI {
-	posts := domain.PostsFromCDN(p.Config)
+	posts := domain.PostsFromAPI(p.Config)
 	return &shared.Base{
 		Title: p.Title,
 		Children: []app.UI{
@@ -23,14 +23,14 @@ func (p *Posts) Render() app.UI {
 				app.Div().Class("flex flex-col w-full h-full space-y-3").Body(
 					app.Range(posts).Slice(func(i int) app.UI {
 						post := posts[i]
-						return app.A().Href("/posts/" + post.Title).Class("w-full h-1/8 px-6 rounded-2xl transition hover:shadow-lg bg-neutral hover:bg-accent").Body(
+						return app.A().Href("/posts/" + post.Id).Class("w-full h-1/8 px-6 rounded-2xl transition hover:shadow-lg bg-neutral hover:bg-accent").Body(
 							app.Div().Class("flex h-full justify-between items-center space-x-5").Body(
 								app.Div().Body(
-									app.Img().Class("w-16 rounded-full").Src(p.Config.CDN.Url+post.IconPath),
+									app.Img().Class("w-16 rounded-full").Src(p.Config.CDN.Url+post.IconName),
 								),
 								app.Div().Class("text-end").Body(
-									app.H3().Class("text-xl font-semibold transition").Text(post.Metadata.Title),
-									app.P().Text(post.Metadata.Description),
+									app.H3().Class("text-xl font-semibold transition").Text(post.Title),
+									app.P().Text(post.Description),
 								),
 							),
 						)

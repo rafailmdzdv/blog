@@ -4,6 +4,10 @@ type Config struct {
 	CDN struct {
 		Url string
 	}
+
+	API struct {
+		Url string
+	}
 }
 
 type Map struct {
@@ -16,7 +20,12 @@ func DefaultConfig() Map {
 			CDN: struct {
 				Url string
 			}{
-				Url: "https://cdn.rafailmdzdv.ru/",
+				Url: "https://cdn.rafailmdzdv.ru/ico/",
+			},
+			API: struct {
+				Url string
+			}{
+				Url: "https://app.blog.rafailmdzdv.ru/",
 			},
 		},
 	}

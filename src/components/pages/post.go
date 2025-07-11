@@ -1,8 +1,14 @@
 package pages
 
 import (
+	"compress/zlib"
+	"encoding/base64"
+	"encoding/json"
+	"fmt"
+	"io"
 	"net/http"
 
+	"bytes"
 	"strings"
 
 	"github.com/maxence-charriere/go-app/v10/pkg/app"
@@ -51,13 +57,25 @@ func (p *Post) Render() app.UI {
 	}
 }
 
+type PostJSON struct {
+	Content string
+}
+
 func (p *Post) OnNav(ctx app.Context) {
 	ctx.Async(func() {
 		splittedPath := strings.Split(ctx.Page().URL().Path, "/")
-		postTitle := splittedPath[len(splittedPath)-1]
-		r, _ := http.Get(p.Config.CDN.Url + postTitle + ".org")
+		postId := splittedPath[len(splittedPath)-1]
+		r, _ := http.Get(fmt.Sprintf("%s/api/v1/posts/content/?id=%s", p.Config.API.Url, postId))
 		defer r.Body.Close()
-		html, _ := org.New().Parse(r.Body, "").Write(org.NewHTMLWriter())
+		postJSON := PostJSON{}
+		body, _ := io.ReadAll(r.Body)
+		json.Unmarshal(body, &postJSON)
+
+		// decompressing
+		decoded, _ := base64.StdEncoding.DecodeString(postJSON.Content)
+		zlibReader, _ := zlib.NewReader(bytes.NewReader(decoded))
+
+		html, _ := org.New().Parse(zlibReader, "").Write(org.NewHTMLWriter())
 		html = strings.Split(html, "</nav>")[1]
 		ctx.Dispatch(func(ctx app.Context) {
 			p.PostContent = html
