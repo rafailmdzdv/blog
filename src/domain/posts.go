@@ -18,7 +18,7 @@ type Post struct {
 }
 
 func PostsFromAPI(c config.Map) []Post {
-	r, _ := http.Get(c.API.Url + "api/v1/posts/")
+	r, _ := http.Get(c.API.Url + "/api/v1/posts/")
 	defer r.Body.Close()
 	body, _ := io.ReadAll(r.Body)
 	posts := []Post{}

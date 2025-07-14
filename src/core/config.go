@@ -25,7 +25,7 @@ func DefaultConfig() Map {
 			API: struct {
 				Url string
 			}{
-				Url: "https://app.blog.rafailmdzdv.ru/",
+				Url: "https://app.blog.rafailmdzdv.ru",
 			},
 		},
 	}
